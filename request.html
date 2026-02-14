@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>本を受け取る - 栞のたより</title>
+    <meta name="description" content="栞のたよりで本を受け取るための合言葉入力ページです。">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 合言葉ページ専用スタイル */
+        .passphrase-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--light-green) 100%);
+            padding: 2rem;
+        }
+
+        .passphrase-container {
+            background-color: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--soft-shadow);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .passphrase-title {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 2rem;
+            font-family: var(--font-title);
+        }
+
+        .passphrase-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border: 2px solid var(--light-green);
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s ease;
+            font-family: var(--font-main);
+        }
+
+        .passphrase-input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            background-color: var(--primary-green);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--soft-shadow);
+        }
+
+        .submit-button:hover {
+            background-color: #5a8767;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 158, 120, 0.3);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: var(--text-medium);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--primary-green);
+        }
+
+        /* 結果表示エリア */
+        #result {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, var(--light-green), var(--warm-beige));
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .success-message h2 {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-title);
+        }
+
+        .book-info {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .book-title {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .book-title strong {
+            color: var(--primary-green);
+            font-size: 1.3rem;
+        }
+
+        .url-container {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .url-label {
+            font-size: 1rem;
+            color: var(--text-medium);
+            margin-bottom: 0.8rem;
+        }
+
+        .delivery-url {
+            display: inline-block;
+            color: var(--primary-green);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            background-color: var(--cream);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            word-break: break-all;
+        }
+
+        .delivery-url:hover {
+            background-color: var(--light-green);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .instruction {
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            margin-top: 1rem;
+        }
+
+        .message {
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .message.error {
+            background-color: #ffe5e5;
+            color: #c00;
+            border: 2px solid #ffc0c0;
+        }
+
+        @media (max-width: 480px) {
+            .passphrase-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .passphrase-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="passphrase-page">
+        <div class="passphrase-container">
+            <h1 class="passphrase-title">合言葉はこちら</h1>
+            
+            <form id="passphraseForm">
+                <input 
+                    type="text" 
+                    id="passphraseInput" 
+                    class="passphrase-input" 
+                    placeholder="合言葉を入力してください"
+                    required
+                >
+                <button type="submit" class="submit-button">確定</button>
+            </form>
+
+            <!-- 結果表示エリア -->
+            <div id="result"></div>
+
+            <a href="index.html" class="back-link">← トップページに戻る</a>
+        </div>
+    </div>
+
+    <script src="request.js"></script>
+</body>
+</html>
