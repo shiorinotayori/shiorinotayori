@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /request.html
+
+Sitemap: https://shiorinotayori.github.io/shiorinotayori/sitemap.xml
