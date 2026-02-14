@@ -28,7 +28,7 @@ document.getElementById('passphraseForm').addEventListener('submit', async funct
             showSuccess(data.bookTitle, data.url);
         } else {
             // 合言葉が一致しなかった場合
-            showMessage('合言葉が見つかりませんでした。もう一度確認してください。', 'error');
+            showMessage('合言葉が異なります。全角/半角に注意して再度ご入力ください。', 'error');
         }
     } catch (error) {
         console.error('エラー:', error);
@@ -45,7 +45,7 @@ function showSuccess(bookTitle, deliveryUrl) {
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = `
         <div class="success-message">
-            <h2>✓ 合言葉が確認できました</h2>
+            <h2>いろいろ注文が多くてうるさかったでしょう。お気の毒でした。<br>もうこれだけです。</h2>
             <div class="book-info">
                 <p class="book-title">📖 お届けする本：<strong>${bookTitle}</strong></p>
             </div>
@@ -58,8 +58,9 @@ function showSuccess(bookTitle, deliveryUrl) {
     `;
     resultDiv.style.display = 'block';
     
-    // フォームを非表示
+    // フォームとタイトルを非表示
     document.getElementById('passphraseForm').style.display = 'none';
+    document.getElementById('passphraseTitle').style.display = 'none';
 }
 
 // エラーメッセージ表示
