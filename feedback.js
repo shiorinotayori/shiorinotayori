@@ -1,5 +1,5 @@
 // GoogleスプレッドシートのAPI URL
-const API_URL = 'https://docs.google.com/spreadsheets/d/1CCyAdFlC_ltsIq55IVutKogcYW9CHzuG_cg5NOvQZBw/edit?gid=0#gid=0';
+const API_URL = 'https://script.google.com/macros/s/AKfycbw6QINhoN4D7mk-y_pvdd25rQ5jyK28iHb78rsF74RxJerAnek4oDlEJ5d81AQbYnbfRw/exec';
 
 // 「その他」選択時の入力欄表示/非表示
 document.querySelectorAll('input[name="source"]').forEach(radio => {
