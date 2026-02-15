@@ -42,7 +42,17 @@ document.getElementById('feedbackForm').addEventListener('submit', async functio
             publishConsent: publishConsent
         });
         
-        await fetch(`${API_URL}?${params.toString()}`);
+        const response = await fetch(`${API_URL}?${params.toString()}`);
+	const data = await response.json();
+
+	if (data.success) {
+	    document.getElementById('formContainer').style.display = 'none';
+	    document.getElementById('successMessage').style.display = 'block';
+	    window.scrollTo({ top: 0, behavior: 'smooth' });
+	} else {
+	    alert('送信エラー: ' + data.message);
+	}
+
         
         // 成功メッセージを表示
         document.getElementById('formContainer').style.display = 'none';
@@ -52,7 +62,10 @@ document.getElementById('feedbackForm').addEventListener('submit', async functio
         window.scrollTo({ top: 0, behavior: 'smooth' });
         
     } catch (error) {
-        console.error('送信エラー:', error);
+	    console.error('送信エラー:', error);
+	    alert('通信エラーが発生しました。時間をおいて再度お試しください。');
+	}
+
         
         // エラーが発生してもユーザーには成功として表示
         document.getElementById('formContainer').style.display = 'none';
