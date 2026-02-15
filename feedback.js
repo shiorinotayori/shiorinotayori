@@ -32,7 +32,6 @@ document.getElementById('feedbackForm').addEventListener('submit', async functio
     const publishConsent = document.querySelector('input[name="publishConsent"]:checked').value;
     
     try {
-        // GETパラメータとして送信（Apps Scriptで確実に受信できる方法）
         const params = new URLSearchParams({
             action: 'submitFeedback',
             source: source,
@@ -42,35 +41,20 @@ document.getElementById('feedbackForm').addEventListener('submit', async functio
             publishConsent: publishConsent
         });
         
-        const response = await fetch(`${API_URL}?${params.toString()}`);
-	const data = await response.json();
-
-	if (data.success) {
-	    document.getElementById('formContainer').style.display = 'none';
-	    document.getElementById('successMessage').style.display = 'block';
-	    window.scrollTo({ top: 0, behavior: 'smooth' });
-	} else {
-	    alert('送信エラー: ' + data.message);
-	}
-
+        // GAS送信のポイント: mode: 'no-cors' を指定
+        await fetch(`${API_URL}?${params.toString()}`, {
+            method: 'GET',
+            mode: 'no-cors' // これを加えることでブラウザのブロックを回避します
+        });
         
-        // 成功メッセージを表示
+        // 送信が完了してから画面を切り替える
         document.getElementById('formContainer').style.display = 'none';
         document.getElementById('successMessage').style.display = 'block';
-        
-        // ページトップにスクロール
         window.scrollTo({ top: 0, behavior: 'smooth' });
         
     } catch (error) {
-	    console.error('送信エラー:', error);
-	    alert('通信エラーが発生しました。時間をおいて再度お試しください。');
-	}
-
-        
-        // エラーが発生してもユーザーには成功として表示
-        document.getElementById('formContainer').style.display = 'none';
-        document.getElementById('successMessage').style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        console.error('送信エラー:', error);
+        alert('送信中にエラーが発生しました。時間を置いて再度お試しください。');
     } finally {
         submitButton.disabled = false;
         submitButton.textContent = '送信';
