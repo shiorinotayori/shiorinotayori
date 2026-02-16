@@ -1,8 +1,16 @@
 // ============================================
 // 設定
 // ============================================
-const MONTHLY_DIAGNOSIS_LIMIT = 1000;  // 月間診断回数の上限
+const MONTHLY_DIAGNOSIS_LIMIT = 100;  // 月間診断回数の上限
 
+// スクリプトプロパティからAPIキーとモデルを取得
+function getScriptProperty(key) {
+  const value = PropertiesService.getScriptProperties().getProperty(key);
+  if (!value) {
+    throw new Error(`スクリプトプロパティ「${key}」が設定されていません`);
+  }
+  return value;
+}
 // ============================================
 // 診断機能（新規追加）
 // ============================================
@@ -50,6 +58,13 @@ function handleDiagnosis(data) {
         })
       ).setMimeType(ContentService.MimeType.JSON);
     }
+    // スクリプトプロパティからAPIキーとモデルを取得
+    const apiKey = getScriptProperty('CLAUDE_API_KEY');
+    const model = getScriptProperty('CLAUDE_MODEL');
+    
+    // データにAPIキーとモデルを追加
+    data.apiKey = apiKey;
+    data.model = model;
     
     // Claude APIを呼び出し
     const diagnosisResult = callClaudeAPI(data);
