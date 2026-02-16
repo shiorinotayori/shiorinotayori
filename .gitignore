@@ -1,0 +1,15 @@
+# APIキーを含むファイル（GitHubにアップロードしない）
+config.js
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# エディタ
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

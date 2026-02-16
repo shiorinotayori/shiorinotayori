@@ -1,0 +1,18 @@
+// ============================================
+// API設定ファイル（サンプル）
+// ============================================
+// このファイルをコピーして「config.js」という名前で保存してください
+// config.js に実際のAPIキーを入力してください
+// ⚠️ config.js はGitHubにアップロードしないでください！
+// ============================================
+
+const API_CONFIG = {
+    // Claude APIキー（Console.anthropic.comで取得）
+    CLAUDE_API_KEY: '',  // ← ここにAPIキーを入力（例：sk-ant-api03-xxx...）
+    
+    // Claude モデル（Opus 4.5）
+    CLAUDE_MODEL: 'claude-opus-4-5-20251101',
+    
+    // Apps Script URL（診断回数管理用）
+    APPS_SCRIPT_URL: ''  // ← ここにApps ScriptのデプロイURLを入力
+};

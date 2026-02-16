@@ -122,6 +122,13 @@ header {
     opacity: 0.95;
 }
 
+/* ヒーローボタンコンテナ */
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
 .cta-button {
     display: inline-block;
     background-color: var(--white);
@@ -133,6 +140,14 @@ header {
     border-radius: 50px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.cta-button.secondary {
+    background-color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    padding: 1rem 2.5rem;
 }
 
 .cta-button:hover {
@@ -327,6 +342,17 @@ section {
     background-color: #333333;
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.request-btn {
+    background-color: var(--primary-green);
+    color: var(--white);
+}
+
+.request-btn:hover {
+    background-color: #5a8767;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(107, 158, 120, 0.3);
 }
 
 .email-btn {

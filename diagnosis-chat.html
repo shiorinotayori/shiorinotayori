@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>好きな書籍DE性格診断 - 入力 - 栞のたより</title>
+    <meta name="description" content="あなたの好きな書籍を教えてください。">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 診断入力ページ専用スタイル */
+        .diagnosis-input-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--light-green) 100%);
+            padding: 2rem 1rem 4rem;
+        }
+
+        .diagnosis-input-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* ヘッダー部分 */
+        .diagnosis-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .diagnosis-header-title {
+            font-size: 2rem;
+            font-family: var(--font-title);
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            line-height: 1.5;
+        }
+
+        .diagnosis-header-title .de {
+            font-size: 1.4rem;
+            margin: 0 0.5rem;
+        }
+
+        /* たよりん（小さめ） */
+        .tayorin-small-container {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .tayorin-small {
+            max-width: 150px;
+            width: 100%;
+            height: auto;
+            animation: floatTayorin 3s ease-in-out infinite;
+            filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.2));
+        }
+
+        @keyframes floatTayorin {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* 吹き出し（質問） */
+        .question-bubble {
+            position: relative;
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 2rem 2.5rem;
+            margin: 0 auto 3rem;
+            max-width: 600px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        .question-bubble::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 20px solid var(--white);
+        }
+
+        .question-bubble p {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* 入力フォーム */
+        .book-input-form {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .book-input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            font-size: 1.05rem;
+            border: 2px solid var(--light-green);
+            border-radius: 10px;
+            font-family: var(--font-main);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .book-input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(107, 158, 120, 0.1);
+        }
+
+        .book-input::placeholder {
+            color: #999;
+            font-size: 0.95rem;
+        }
+
+        /* 大きい入力欄 */
+        .book-input-large {
+            min-height: 120px;
+            resize: vertical;
+            padding: 1.2rem 1.5rem;
+        }
+
+        /* ボタンコンテナ */
+        .button-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .submit-button {
+            display: inline-block;
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 1.2rem 4rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 6px 25px rgba(107, 158, 120, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(107, 158, 120, 0.4);
+            background-color: #5a8767;
+        }
+
+        .submit-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* リンク */
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1rem;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .diagnosis-header-title {
+                font-size: 1.6rem;
+            }
+
+            .diagnosis-header-title .de {
+                font-size: 1.2rem;
+            }
+
+            .tayorin-small {
+                max-width: 100px;
+            }
+
+            .question-bubble {
+                padding: 1.5rem 2rem;
+            }
+
+            .question-bubble p {
+                font-size: 1.2rem;
+            }
+
+            .book-input-form {
+                padding: 2rem 1.5rem;
+            }
+
+            .book-input {
+                font-size: 1rem;
+            }
+
+            .submit-button {
+                padding: 1rem 3rem;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="diagnosis-input-page">
+        <div class="diagnosis-input-container">
+            <!-- ヘッダー -->
+            <div class="diagnosis-header">
+                <h1 class="diagnosis-header-title">
+                    好きな書籍<span class="de">DE</span>性格診断
+                </h1>
+                <div class="tayorin-small-container">
+                    <img src="tayorin_nobackground_.png" alt="たよりん" class="tayorin-small">
+                </div>
+            </div>
+
+            <!-- 質問吹き出し -->
+            <div class="question-bubble">
+                <p>好きな書籍を5つ教えてね！</p>
+            </div>
+
+            <!-- 入力フォーム -->
+            <div class="book-input-form">
+                <form id="bookForm">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            class="book-input" 
+                            id="book1" 
+                            placeholder="書籍名（特定できない場合は著者名も追記してください）"
+                        >
+                    </div>
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            class="book-input" 
+                            id="book2" 
+                            placeholder="書籍名（特定できない場合は著者名も追記してください）"
+                        >
+                    </div>
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            class="book-input" 
+                            id="book3" 
+                            placeholder="書籍名（特定できない場合は著者名も追記してください）"
+                        >
+                    </div>
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            class="book-input" 
+                            id="book4" 
+                            placeholder="書籍名（特定できない場合は著者名も追記してください）"
+                        >
+                    </div>
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            class="book-input" 
+                            id="book5" 
+                            placeholder="書籍名（特定できない場合は著者名も追記してください）"
+                        >
+                    </div>
+                    <div class="input-group">
+                        <textarea 
+                            class="book-input book-input-large" 
+                            id="bookAll" 
+                            placeholder="まとめて入力する場合はこちら（どうしても5つに絞れなかった場合もこちら）"
+                        ></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ボタン -->
+            <div class="button-container">
+                <button type="submit" form="bookForm" class="submit-button" id="submitBtn">
+                    診断開始
+                </button>
+                <br>
+                <a href="index.html" class="back-link">← トップページに戻る</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // フォーム送信処理（次ページへのデータ引き継ぎ用）
+        document.getElementById('bookForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 入力値を取得
+            const books = [];
+            for (let i = 1; i <= 5; i++) {
+                const value = document.getElementById('book' + i).value.trim();
+                if (value) {
+                    books.push(value);
+                }
+            }
+            
+            const bookAll = document.getElementById('bookAll').value.trim();
+            
+            // バリデーション：いずれかの入力があるか確認
+            if (books.length === 0 && !bookAll) {
+                alert('少なくとも1つの書籍を入力してください。');
+                return;
+            }
+            
+            // データをローカルストレージに保存
+            const bookData = {
+                books: books,
+                bookAll: bookAll,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('diagnosisBooks', JSON.stringify(bookData));
+            
+            // 次のページへ遷移
+            window.location.href = 'diagnosis-result.html';
+        });
+    </script>
+</body>
+</html>

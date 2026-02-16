@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>好きな書籍DE性格診断 - 栞のたより</title>
+    <meta name="description" content="あなたの好きな書籍から性格や内面を診断します。エンターテイメント目的の楽しい診断です。">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 診断ページ専用スタイル */
+        .diagnosis-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--light-green) 0%, var(--sky-blue) 100%);
+            padding: 4rem 0;
+        }
+
+        .diagnosis-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .diagnosis-title {
+            font-size: 3rem;
+            font-family: var(--font-title);
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            line-height: 1.5;
+        }
+
+        .diagnosis-title .de {
+            font-size: 2rem;
+            margin: 0 0.5rem;
+        }
+
+        /* たよりんキャラクター */
+        .tayorin-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .tayorin-image {
+            max-width: 300px;
+            width: 100%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* 吹き出し */
+        .speech-bubble {
+            background-color: var(--white);
+            padding: 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            position: relative;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 20px solid var(--white);
+        }
+
+        .speech-bubble p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .speech-bubble p:last-child {
+            margin-bottom: 0;
+        }
+
+        .notice-list {
+            background-color: var(--cream);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 1.5rem;
+        }
+
+        .notice-list p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-medium);
+            margin-bottom: 0.5rem;
+        }
+
+        .notice-list p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 同意ボタン */
+        .consent-button-container {
+            text-align: center;
+        }
+
+        .consent-button {
+            display: inline-block;
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 1.5rem 4rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(107, 158, 120, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .consent-button:hover {
+            background-color: #5a8767;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(107, 158, 120, 0.4);
+        }
+
+        /* 戻るリンク */
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1rem;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .diagnosis-title {
+                font-size: 2.2rem;
+            }
+
+            .diagnosis-title .de {
+                font-size: 1.5rem;
+            }
+
+            .tayorin-image {
+                max-width: 200px;
+            }
+
+            .speech-bubble {
+                padding: 2rem;
+            }
+
+            .speech-bubble p {
+                font-size: 1rem;
+            }
+
+            .consent-button {
+                padding: 1.2rem 3rem;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="diagnosis-page">
+        <div class="diagnosis-container">
+            <!-- タイトル -->
+            <h1 class="diagnosis-title">
+                好きな書籍<br>
+                <span class="de">DE</span><br>
+                性格診断
+            </h1>
+
+            <!-- たよりんキャラクター -->
+            <div class="tayorin-container">
+                <img src="tayorin_nobackground_.png" alt="たよりん" class="tayorin-image">
+            </div>
+
+            <!-- 吹き出し -->
+            <div class="speech-bubble">
+                <p>
+                    栞のたよりの「好きな書籍DE性格診断」へようこそ。<br>
+                    マスコットキャラクターのたよりんです。
+                </p>
+                <p>
+                    ここではあなたの好きな書籍を聞いて、<br>
+                    そこからあなたの性格や内面を診断していきます。
+                </p>
+                
+                <div class="notice-list">
+                    <p><strong>【ご注意】</strong></p>
+                    <p>・医学的・心理学的な知見に基づくものではありません</p>
+                    <p>・診断内容や結果は保存されませんのでご安心ください</p>
+                    <p>・実際の性格を完全に表すものではないことをご了承ください</p>
+                </div>
+            </div>
+
+            <!-- 同意ボタン -->
+            <div class="consent-button-container">
+                <a href="diagnosis-quiz.html" class="consent-button">同意して診断開始</a>
+            </div>
+
+            <!-- 戻るリンク -->
+            <a href="index.html" class="back-link">← トップページに戻る</a>
+        </div>
+    </div>
+</body>
+</html>
