@@ -1,6 +1,5 @@
 // GoogleスプレッドシートのAPI URL
-const API_URL = 'https://script.google.com/macros/s/AKfycbyirCi56H1qQm89RidgL7aPLCMVuMkw_YmIFDpNvcRM9Vug5L3H9EbAkx8q3FCeiALkmg/exec';
-
+const API_URL = 'https://script.google.com/macros/s/AKfycbw6QINhoN4D7mk-y_pvdd25rQ5jyK28iHb78rsF74RxJerAnek4oDlEJ5d81AQbYnbfRw/exec';
 // 合言葉フォームの処理
 document.getElementById('passphraseForm').addEventListener('submit', async function(e) {
     e.preventDefault();
