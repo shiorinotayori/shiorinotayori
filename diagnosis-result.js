@@ -1,7 +1,11 @@
 // ============================================
-// 診断設定（基本設定）
+// 診断設定
 // ============================================
 const CONFIG = {
+    // Apps Script URL（APIキーはApps Script側で管理）
+    APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbw6QINhoN4D7mk-y_pvdd25rQ5jyK28iHb78rsF74RxJerAnek4oDlEJ5d81AQbYnbfRw/exec',
+    
+    // 診断設定
     MAX_TOKENS: 4000,
     TEMPERATURE: 0.85,
     
@@ -161,23 +165,13 @@ async function performDiagnosis(bookData) {
 
 // Apps Script経由で診断API呼び出し
 async function callDiagnosisAPI(booksText) {
-    // config.jsが読み込まれているか確認
-    if (typeof API_CONFIG === 'undefined') {
-        throw new Error('config.jsが読み込まれていません');
-    }
-    
     // Apps Script URLが設定されているか確認
-    if (!API_CONFIG.APPS_SCRIPT_URL) {
+    if (!CONFIG.APPS_SCRIPT_URL) {
         throw new Error('Apps Script URLが設定されていません');
     }
     
-    // APIキーとモデルが設定されているか確認
-    if (!API_CONFIG.CLAUDE_API_KEY || !API_CONFIG.CLAUDE_MODEL) {
-        throw new Error('APIキーまたはモデルが設定されていません');
-    }
-    
-    // Apps Scriptに診断リクエストを送信
-    const response = await fetch(API_CONFIG.APPS_SCRIPT_URL, {
+    // Apps Scriptに診断リクエストを送信（APIキーは送らない）
+    const response = await fetch(CONFIG.APPS_SCRIPT_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'text/plain',
@@ -185,8 +179,7 @@ async function callDiagnosisAPI(booksText) {
         body: JSON.stringify({
             action: 'diagnose',
             books: booksText,
-            apiKey: API_CONFIG.CLAUDE_API_KEY,
-            model: API_CONFIG.CLAUDE_MODEL,
+            // apiKeyとmodelは送らない（Apps Script側で設定）
             systemPrompt: CONFIG.SYSTEM_PROMPT,
             maxTokens: CONFIG.MAX_TOKENS,
             temperature: CONFIG.TEMPERATURE
