@@ -1,14 +1,10 @@
 // ============================================
-// 設定
+// 診断設定（基本設定）
 // ============================================
 const CONFIG = {
-    // Apps Script URL（APIキーはApps Script側で管理）
-    APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbw6QINhoN4D7mk-y_pvdd25rQ5jyK28iHb78rsF74RxJerAnek4oDlEJ5d81AQbYnbfRw/exec',
-    
-    // 診断設定
     MAX_TOKENS: 4000,
     TEMPERATURE: 0.85,
-
+    
     // システムプロンプト
     SYSTEM_PROMPT: `# システムプロンプト：好きな書籍で性格診断
 
@@ -165,13 +161,23 @@ async function performDiagnosis(bookData) {
 
 // Apps Script経由で診断API呼び出し
 async function callDiagnosisAPI(booksText) {
+    // config.jsが読み込まれているか確認
+    if (typeof API_CONFIG === 'undefined') {
+        throw new Error('config.jsが読み込まれていません');
+    }
+    
     // Apps Script URLが設定されているか確認
-    if (!CONFIG.APPS_SCRIPT_URL) {
+    if (!API_CONFIG.APPS_SCRIPT_URL) {
         throw new Error('Apps Script URLが設定されていません');
     }
     
-    // Apps Scriptに診断リクエストを送信（APIキーは送らない）
-    const response = await fetch(CONFIG.APPS_SCRIPT_URL, {
+    // APIキーとモデルが設定されているか確認
+    if (!API_CONFIG.CLAUDE_API_KEY || !API_CONFIG.CLAUDE_MODEL) {
+        throw new Error('APIキーまたはモデルが設定されていません');
+    }
+    
+    // Apps Scriptに診断リクエストを送信
+    const response = await fetch(API_CONFIG.APPS_SCRIPT_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'text/plain',
@@ -179,7 +185,8 @@ async function callDiagnosisAPI(booksText) {
         body: JSON.stringify({
             action: 'diagnose',
             books: booksText,
-            // apiKeyとmodelは送らない（Apps Script側で設定）
+            apiKey: API_CONFIG.CLAUDE_API_KEY,
+            model: API_CONFIG.CLAUDE_MODEL,
             systemPrompt: CONFIG.SYSTEM_PROMPT,
             maxTokens: CONFIG.MAX_TOKENS,
             temperature: CONFIG.TEMPERATURE
@@ -213,13 +220,18 @@ function displayResult(diagnosisText) {
 
 // 診断結果をHTMLに整形
 function formatDiagnosisResult(text) {
-    // セクションごとに分割して整形
+    // Markdown記法を削除
+    text = text.replace(/\*\*/g, '');  // **太字** を削除
+    text = text.replace(/\*/g, '');    // *斜体* を削除
+    text = text.replace(/##\s*/g, ''); // ## 見出し を削除
+    
     let html = '<div class="result-box">';
     
     // 改行でテキストを分割
     const lines = text.split('\n');
     let currentSection = '';
     let inList = false;
+    let isFirstSection = true;
     
     for (let line of lines) {
         line = line.trim();
@@ -232,46 +244,44 @@ function formatDiagnosisResult(text) {
             continue;
         }
         
-        // 見出し（### で始まる行）
-        if (line.startsWith('###')) {
+        // 見出し（### で始まる行、または数字+. で始まる大見出し）
+        if (line.startsWith('###') || line.match(/^[0-9]+\.\s/)) {
             if (inList) {
                 html += '</ul>';
                 inList = false;
             }
             
-            const heading = line.replace(/^###\s*/, '').replace(/^#+\s*/, '');
+            // 見出しテキストを抽出（###や数字を削除）
+            let heading = line.replace(/^###\s*/, '')
+                             .replace(/^[0-9]+\.\s*/, '')
+                             .replace(/^#+\s*/, '');
             
-            // 一言診断は特別扱い
-            if (heading.includes('一言診断') || currentSection === '' && !currentSection) {
+            // 「一言診断」は特別扱い
+            if (heading.includes('一言診断')) {
                 currentSection = 'catchphrase';
-            } else {
-                if (currentSection) {
+                if (!isFirstSection) {
                     html += '</div><div class="result-box">';
                 }
-                html += `<h2>${heading}</h2>`;
-                currentSection = 'normal';
+                continue;
             }
+            
+            // 新しいセクション
+            if (!isFirstSection) {
+                html += '</div><div class="result-box">';
+            }
+            html += `<h2>${heading}</h2>`;
+            currentSection = 'normal';
+            isFirstSection = false;
             continue;
         }
         
-        // 小見出し（** で囲まれた行）
-        if (line.startsWith('**') && line.endsWith('**')) {
-            if (inList) {
-                html += '</ul>';
-                inList = false;
-            }
-            const subheading = line.replace(/\*\*/g, '');
-            html += `<h3>${subheading}</h3>`;
-            continue;
-        }
-        
-        // リスト項目（- または数字. で始まる行）
-        if (line.match(/^[-・]\s/) || line.match(/^\d+\.\s/)) {
+        // リスト項目（- または • で始まる行）
+        if (line.match(/^[-•]\s/)) {
             if (!inList) {
                 html += '<ul>';
                 inList = true;
             }
-            const itemText = line.replace(/^[-・]\s/, '').replace(/^\d+\.\s/, '');
+            const itemText = line.replace(/^[-•]\s/, '');
             html += `<li>${itemText}</li>`;
             continue;
         }
@@ -280,6 +290,7 @@ function formatDiagnosisResult(text) {
         if (currentSection === 'catchphrase') {
             html += `<div class="catchphrase">${line}</div>`;
             currentSection = 'normal';
+            isFirstSection = false;
             continue;
         }
         
@@ -288,7 +299,13 @@ function formatDiagnosisResult(text) {
             html += '</ul>';
             inList = false;
         }
-        html += `<p>${line}</p>`;
+        
+        // 段落が「おすすめ本」から始まる場合、小見出しとして扱う
+        if (line.startsWith('『') || line.match(/^「/)) {
+            html += `<h3>${line}</h3>`;
+        } else {
+            html += `<p>${line}</p>`;
+        }
     }
     
     if (inList) {
