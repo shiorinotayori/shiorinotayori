@@ -130,7 +130,9 @@ header {
 }
 
 .cta-button {
-    display: inline-block;
+    display: inline-flex;        /* inline-block から変更 */
+    align-items: center;         /* 追加：垂直方向の中央揃え */
+    justify-content: center;     /* 追加：水平方向の中央揃え */
     background-color: var(--white);
     color: var(--primary-green);
     padding: 1rem 3rem;
