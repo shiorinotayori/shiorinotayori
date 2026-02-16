@@ -20,6 +20,27 @@
             margin: 0 auto;
             padding: 0 20px;
         }
+        /* タイトルとたよりんを横並びに */
+        .title-tayorin-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .title-section {
+            flex: 0 0 auto;
+        }
+
+        .diagnosis-title {
+            font-size: 2.5rem;
+            font-family: var(--font-title);
+            color: var(--white);
+            margin-bottom: 0;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            line-height: 1.5;
+        }
 
         .diagnosis-title {
             font-size: 3rem;
@@ -36,17 +57,18 @@
             margin: 0 0.5rem;
         }
 
-        /* たよりんキャラクター */
+        /* たよりん */
         .tayorin-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 3rem;
+            flex: 0 0 auto;
+            margin-bottom: 0;
         }
 
         .tayorin-image {
-            max-width: 300px;
+            max-width: 250px;
             width: 100%;
-            animation: float 3s ease-in-out infinite;
+            height: auto;
+            animation: floatTayorin 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
         }
 
         @keyframes float {
@@ -156,16 +178,21 @@
 
         /* レスポンシブ */
         @media (max-width: 768px) {
+            .title-tayorin-wrapper {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
             .diagnosis-title {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
 
             .diagnosis-title .de {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
 
             .tayorin-image {
-                max-width: 200px;
+                max-width: 180px;
             }
 
             .speech-bubble {
@@ -176,8 +203,8 @@
                 font-size: 1rem;
             }
 
-            .consent-button {
-                padding: 1.2rem 3rem;
+            .start-button {
+                padding: 1.1rem 3rem;
                 font-size: 1.1rem;
             }
         }
@@ -186,16 +213,18 @@
 <body>
     <div class="diagnosis-page">
         <div class="diagnosis-container">
-            <!-- タイトル -->
-            <h1 class="diagnosis-title">
-                好きな書籍<br>
-                <span class="de">DE</span><br>
-                性格診断
-            </h1>
-
-            <!-- たよりんキャラクター -->
-            <div class="tayorin-container">
-                <img src="tayorin_nobackground_.png" alt="たよりん" class="tayorin-image">
+            <!-- タイトルとたよりんを横並びに -->
+            <div class="title-tayorin-wrapper">
+                <div class="title-section">
+                   <h1 class="diagnosis-title">
+                        好きな書籍<br>
+                        <span class="de">DE</span><br>
+                        性格診断
+                   </h1>
+                </div>
+                <div class="tayorin-container">
+                    <img src="tayorin_nobackground_.png" alt="たよりん" class="tayorin-image">
+                </div>
             </div>
 
             <!-- 吹き出し -->
