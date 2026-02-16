@@ -125,14 +125,15 @@ header {
 /* ヒーローボタンコンテナ */
 .hero-buttons {
     display: flex;
+    flex-direction: column;
     gap: 1.5rem;
-    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
 }
 
 .cta-button {
-    display: inline-flex;        /* inline-block から変更 */
-    align-items: center;         /* 追加：垂直方向の中央揃え */
-    justify-content: center;     /* 追加：水平方向の中央揃え */
+    display: inline-block;
     background-color: var(--white);
     color: var(--primary-green);
     padding: 1rem 3rem;
@@ -151,22 +152,24 @@ header {
     font-size: 1rem;
     padding: 1rem 2.5rem;
 }
-/* 性格診断ボタン（大きめ） */
-.cta-button.diagnosis-button {
-    padding: 1.5rem 3.5rem;
-    font-size: 1.15rem;
-    min-width: 200px;
-}
-
-.de-text {
-    font-size: 0.75em;
-    margin: 0.2rem 0;
-    display: inline-block;
-}
 
 .cta-button:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* 性格診断ボタン（大きめ・縦並び） */
+.cta-button.diagnosis-button {
+    padding: 1.8rem 4rem;
+    font-size: 1.3rem;
+    min-width: 280px;
+    width: 100%;
+}
+
+.de-text {
+    font-size: 0.7em;
+    margin: 0.3rem 0;
+    display: inline-block;
 }
 
 .hero-image {
@@ -622,16 +625,4 @@ footer p {
     section {
         padding: 3rem 0;
     }
-}
-/* 性格診断ボタン（大きめ） */
-.cta-button.diagnosis-button {
-    padding: 1.5rem 3.5rem;
-    font-size: 1.15rem;
-    min-width: 200px;
-}
-
-.de-text {
-    font-size: 0.75em;
-    margin: 0.2rem 0;
-    display: inline-block;
 }
