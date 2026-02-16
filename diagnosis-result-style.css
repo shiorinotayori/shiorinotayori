@@ -1,0 +1,261 @@
+/* 診断結果ページ専用スタイル */
+.diagnosis-result-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--sky-blue) 0%, var(--light-green) 100%);
+    padding: 2rem 1rem 4rem;
+}
+
+.diagnosis-result-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ヘッダー */
+.result-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeInDown 1s ease-out forwards;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-header-title {
+    font-size: 2.5rem;
+    font-family: var(--font-title);
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* たよりん */
+.tayorin-result-container {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.tayorin-result {
+    max-width: 120px;
+    width: 100%;
+    height: auto;
+    animation: floatTayorin 3s ease-in-out infinite;
+    filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes floatTayorin {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* ローディング */
+.loading-container {
+    text-align: center;
+    padding: 3rem 2rem;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.loading-message {
+    background-color: var(--white);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 0 auto;
+    max-width: 500px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.loading-message p {
+    font-size: 1.2rem;
+    color: var(--primary-green);
+    margin-bottom: 1.5rem;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--light-green);
+    border-top: 4px solid var(--primary-green);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 結果表示エリア */
+.result-content {
+    display: none;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+.result-content.show {
+    display: block;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 結果ボックス */
+.result-box {
+    background-color: var(--white);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    margin-bottom: 2rem;
+}
+
+.result-box h2 {
+    font-size: 1.8rem;
+    color: var(--primary-green);
+    margin-bottom: 1.5rem;
+    font-family: var(--font-title);
+    border-bottom: 3px solid var(--light-green);
+    padding-bottom: 0.5rem;
+}
+
+/* コンテンツエリア */
+.content-area {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--text-dark);
+}
+
+.content-area p {
+    margin-bottom: 1.2rem;
+}
+
+.content-area ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.content-area li {
+    padding: 0.8rem 0;
+    padding-left: 2rem;
+    position: relative;
+    line-height: 1.8;
+}
+
+.content-area li::before {
+    content: '📖';
+    position: absolute;
+    left: 0;
+    font-size: 1.2rem;
+}
+
+/* 一言診断（特別強調） */
+.catchphrase {
+    background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+    color: var(--white);
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(107, 158, 120, 0.3);
+    line-height: 1.8;
+}
+
+/* エラー表示 */
+.error-message {
+    background-color: #ffebee;
+    border: 2px solid #ef5350;
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+.error-message h3 {
+    color: #c62828;
+    margin-bottom: 1rem;
+}
+
+.error-message p {
+    color: #d32f2f;
+    margin-bottom: 1.5rem;
+}
+
+/* ボタン */
+.button-container {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.back-link {
+    display: inline-block;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1.1rem;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+    padding: 1rem 2rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+}
+
+.back-link:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    .result-header-title {
+        font-size: 2rem;
+    }
+
+    .result-box {
+        padding: 2rem 1.5rem;
+    }
+
+    .result-box h2 {
+        font-size: 1.5rem;
+    }
+
+    .catchphrase {
+        font-size: 1.2rem;
+        padding: 1.5rem;
+    }
+
+    .content-area {
+        font-size: 1rem;
+    }
+}
