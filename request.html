@@ -128,37 +128,43 @@
             padding: 1.5rem;
             border-radius: 10px;
             margin-bottom: 1rem;
+            text-align: center;
         }
 
-        .url-label {
-            font-size: 1rem;
-            color: var(--text-medium);
-            margin-bottom: 0.8rem;
-        }
-
-        .delivery-url {
+        .delivery-button {
             display: inline-block;
-            color: var(--primary-green);
+            color: var(--white);
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             text-decoration: none;
-            padding: 1rem 2rem;
-            background-color: var(--cream);
-            border-radius: 10px;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            border-radius: 50px;
             transition: all 0.3s ease;
-            word-break: break-all;
+            box-shadow: 0 4px 15px rgba(107, 158, 120, 0.3);
         }
 
-        .delivery-url:hover {
-            background-color: var(--light-green);
-            color: var(--white);
-            transform: translateY(-2px);
+        .delivery-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(107, 158, 120, 0.4);
         }
 
         .instruction {
             font-size: 0.95rem;
             color: var(--text-medium);
             margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .warning {
+            font-size: 1.1rem;
+            color: #d32f2f;
+            font-weight: 700;
+            margin-top: 1rem;
+            padding: 0.8rem;
+            background-color: #fff3e0;
+            border-radius: 10px;
+            border: 2px solid #ff9800;
         }
 
         .message {

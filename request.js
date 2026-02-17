@@ -1,5 +1,6 @@
 // GoogleスプレッドシートのAPI URL
 const API_URL = 'https://script.google.com/macros/s/AKfycbw6QINhoN4D7mk-y_pvdd25rQ5jyK28iHb78rsF74RxJerAnek4oDlEJ5d81AQbYnbfRw/exec';
+
 // 合言葉フォームの処理
 document.getElementById('passphraseForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -49,10 +50,10 @@ function showSuccess(bookTitle, deliveryUrl) {
                 <p class="book-title">📖 お届けする本：<strong>${bookTitle}</strong></p>
             </div>
             <div class="url-container">
-                <p class="url-label">匿名配送URLはこちら：</p>
-                <a href="${deliveryUrl}" target="_blank" class="delivery-url">${deliveryUrl}</a>
+                <a href="${deliveryUrl}" target="_blank" class="delivery-button">匿名配送URLはこちら</a>
             </div>
-            <p class="instruction">上記のURLをクリックして、配送先情報を入力してください。</p>
+            <p class="instruction">上記のボタンをクリックして、配送先情報を入力してください。</p>
+            <p class="warning">⚠️ スマホで開いてください（パソコン不可）⚠️</p>
         </div>
     `;
     resultDiv.style.display = 'block';
