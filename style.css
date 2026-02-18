@@ -129,7 +129,15 @@ header {
     gap: 1.5rem;
     align-items: center;
     width: 100%;
-    max-width: 400px;
+    max-width: 600px;
+}
+
+/* ボタンを横並びにするコンテナ */
+.hero-buttons-row {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+    justify-content: center;
 }
 
 .cta-button {
@@ -158,12 +166,22 @@ header {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* 性格診断ボタン（大きめ・縦並び） */
+/* 性格診断ボタン（横幅70%） */
 .cta-button.diagnosis-button {
-    padding: 1.8rem 4rem;
+    padding: 1.8rem 2rem;
     font-size: 1.3rem;
-    min-width: 280px;
+    min-width: 0;
     width: 100%;
+    flex: 1;
+}
+
+/* クイズボタン（診断と同じサイズ） */
+.cta-button.quiz-button {
+    padding: 1.8rem 2rem;
+    font-size: 1.3rem;
+    min-width: 0;
+    width: 100%;
+    flex: 1;
 }
 
 .de-text {
@@ -578,6 +596,12 @@ footer p {
     
     .hero-subtitle {
         font-size: 1.1rem;
+    }
+    
+    /* ボタンを縦並びに */
+    .hero-buttons-row {
+        flex-direction: column;
+        gap: 1rem;
     }
     
     .section-title {
