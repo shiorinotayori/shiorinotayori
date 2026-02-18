@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>書籍名クイズ - 青空文庫</title>
     <meta name="description" content="青空文庫の名作から、一節を読んで作品名を当てるクイズです。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -18,27 +21,54 @@
                 <h2 class="difficulty-heading">難易度を選んでください</h2>
                 <div class="difficulty-buttons-vertical">
                     <button class="difficulty-btn" data-difficulty="easy">
-                        <span class="difficulty-label">初級</span>
-                        <span class="difficulty-desc">有名な作品が中心</span>
+                        <div class="book-button-wrapper">
+                            <img src="初級用.png" alt="" class="book-bg-image">
+                            <div class="book-text-overlay">
+                                <span class="difficulty-label">初級</span>
+                                <span class="difficulty-desc">有名な作品</span>
+                            </div>
+                        </div>
                     </button>
+                    
                     <button class="difficulty-btn" data-difficulty="medium">
-                        <span class="difficulty-label">中級</span>
-                        <span class="difficulty-desc">やや難しめの作品</span>
+                        <div class="book-button-wrapper">
+                            <img src="中級用.png" alt="" class="book-bg-image">
+                            <div class="book-text-overlay">
+                                <span class="difficulty-label">中級</span>
+                                <span class="difficulty-desc">やや難しめ</span>
+                            </div>
+                        </div>
                     </button>
+                    
                     <button class="difficulty-btn" data-difficulty="hard">
-                        <span class="difficulty-label">上級</span>
-                        <span class="difficulty-desc">マイナーな作品も含む</span>
+                        <div class="book-button-wrapper">
+                            <img src="上級用.png" alt="" class="book-bg-image">
+                            <div class="book-text-overlay">
+                                <span class="difficulty-label">上級</span>
+                                <span class="difficulty-desc">マイナー作品</span>
+                            </div>
+                        </div>
                     </button>
+                    
                     <button class="difficulty-btn" data-difficulty="all">
-                        <span class="difficulty-label">全問題</span>
-                        <span class="difficulty-desc">すべての難易度</span>
+                        <div class="book-button-wrapper">
+                            <img src="全体用.png" alt="" class="book-bg-image">
+                            <div class="book-text-overlay">
+                                <span class="difficulty-label">全問題</span>
+                                <span class="difficulty-desc">全難易度</span>
+                            </div>
+                        </div>
                     </button>
                 </div>
             </div>
 
             <!-- 右側：タイトルとたよりん -->
             <div class="title-section">
-                <h1 class="quiz-title">書籍名<br>クイズ</h1>
+                <!-- タイトル画像 -->
+                <div class="book-title-container">
+                    <img src="タイトル用.png" alt="書籍名クイズ" class="title-book-image">
+                </div>
+                
                 <p class="quiz-subtitle">青空文庫の名作から<br>一節を読んで作品名を当てよう</p>
                 <div class="tayorin-container">
                     <img src="tayorin_nobackground_.png" alt="たよりん" class="tayorin-image">
