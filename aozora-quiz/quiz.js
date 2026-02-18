@@ -355,7 +355,6 @@ function showFeedback(isCorrect, correctAnswer) {
     const feedbackOverlay = document.getElementById('feedbackOverlay');
     elements.feedback.className = isCorrect ? 'feedback correct' : 'feedback incorrect';
 
-
     if (isCorrect) {
         elements.feedback.innerHTML = `
             <p>🎉 正解です！</p>
@@ -367,6 +366,9 @@ function showFeedback(isCorrect, correctAnswer) {
             <p><strong>『${correctAnswer}』</strong> / ${gameState.currentQuestion.author}</p>
         `;
     }
+
+    // オーバーレイを表示（アニメーション付き）
+    feedbackOverlay.classList.add('show');
 }
 
 // ============================================
