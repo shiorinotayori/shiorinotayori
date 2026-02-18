@@ -77,7 +77,12 @@ function setupEventListeners() {
     elements.hintBtn.addEventListener('click', showHint);
 
     // 次へボタン
-    elements.nextBtn.addEventListener('click', nextQuestion);
+    if (elements.nextBtn) {
+        elements.nextBtn.addEventListener('click', nextQuestion);
+        console.log('次へボタンのイベントリスナー設定完了');
+    } else {
+        console.error('nextBtnが見つかりません');
+    }
 
     // もう一度挑戦
     elements.retryBtn.addEventListener('click', resetGame);
@@ -375,6 +380,7 @@ function showFeedback(isCorrect, correctAnswer) {
 // 次の問題へ
 // ============================================
 function nextQuestion() {
+    console.log('nextQuestion called');
     gameState.currentQuestionIndex++;
 
     if (gameState.currentQuestionIndex < CONFIG.TOTAL_QUESTIONS) {
@@ -382,9 +388,7 @@ function nextQuestion() {
     } else {
         showResult();
     }
-
-    // オーバーレイを表示（アニメーション付き）
-    feedbackOverlay.classList.add('show');
+}
 }
 
 // ============================================
