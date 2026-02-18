@@ -139,6 +139,7 @@ body {
 /* タイトル部分の本 */
 .book-title-container {
     margin-bottom: 2rem;
+    position: relative;
 }
 
 .title-book-image {
@@ -147,6 +148,78 @@ body {
     height: auto;
     filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15));
     animation: floatBook 3s ease-in-out infinite;
+}
+
+.title-text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+}
+
+.title-line {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.4;
+}
+
+/* たよりんと吹き出し */
+.tayorin-speech-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.speech-bubble {
+    position: relative;
+    background-color: var(--white);
+    border: 3px solid var(--primary-green);
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    max-width: 350px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 20px solid var(--primary-green);
+}
+
+.speech-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 17px solid var(--white);
+    z-index: 1;
+}
+
+.speech-bubble p {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.8;
+    margin: 0;
+    text-align: center;
 }
 
 @keyframes floatBook {
@@ -179,16 +252,8 @@ body {
     position: relative;
 }
 
-.quiz-subtitle {
-    text-align: center;
-    font-size: 1.2rem;
-    color: var(--text-medium);
-    margin-bottom: 3rem;
-    line-height: 1.8;
-}
-
 .tayorin-container {
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .tayorin-image {
