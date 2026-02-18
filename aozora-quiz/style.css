@@ -30,6 +30,21 @@ body {
     min-height: 100vh;
     color: var(--text-dark);
     line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 背景アニメーション */
+.bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.4;
+    pointer-events: none;
 }
 
 .container {
@@ -70,12 +85,21 @@ body {
     padding-right: 2rem;
 }
 
-.difficulty-heading {
-    font-size: 1.5rem;
-    color: var(--text-dark);
+.difficulty-heading-box {
+    background-color: var(--white);
+    border: 4px solid var(--light-green);
+    border-radius: 15px;
+    padding: 1rem 2rem;
     margin-bottom: 2rem;
-    font-family: var(--font-title);
+}
+
+.difficulty-heading {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
     text-align: right;
+    margin: 0;
 }
 
 .difficulty-buttons-vertical {
@@ -105,6 +129,16 @@ body {
     height: auto;
     display: block;
     transition: all 0.3s ease;
+    animation: floatButton 3s ease-in-out infinite;
+}
+
+@keyframes floatButton {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .book-text-overlay {
@@ -123,12 +157,14 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     color: #2c3e50;
+    writing-mode: horizontal-tb;
 }
 
 .difficulty-desc {
     font-family: 'M PLUS Rounded 1c', sans-serif;
     font-size: 1rem;
     color: #5a6c7d;
+    writing-mode: horizontal-tb;
 }
 
 .difficulty-btn:hover .book-bg-image {
@@ -154,7 +190,7 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, calc(-50% - 38px));
     text-align: center;
     pointer-events: none;
 }
@@ -257,7 +293,7 @@ body {
 }
 
 .tayorin-image {
-    max-width: 250px;
+    max-width: 500px;
     width: 100%;
     height: auto;
     animation: floatTayorin 3s ease-in-out infinite;
@@ -676,20 +712,12 @@ body {
         flex: none;
     }
 
-    .quiz-title {
-        font-size: 3rem;
-    }
-
     .tayorin-image {
-        max-width: 200px;
+        max-width: 400px;
     }
 }
 
 @media (max-width: 768px) {
-    .quiz-title {
-        font-size: 2.5rem;
-    }
-
     .difficulty-buttons-vertical {
         gap: 1rem;
     }
@@ -715,6 +743,6 @@ body {
     }
 
     .tayorin-image {
-        max-width: 150px;
+        max-width: 300px;
     }
 }
