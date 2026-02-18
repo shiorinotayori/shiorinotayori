@@ -205,9 +205,10 @@ function loadQuestion() {
     generateChoices();
     resetButtons();
 
-    // フィードバックと次へボタンを非表示
-    elements.feedback.style.display = 'none';
-    elements.nextBtn.style.display = 'none';
+    // フィードバックオーバーレイを非表示
+    const feedbackOverlay = document.getElementById('feedbackOverlay');
+    feedbackOverlay.classList.remove('show');
+
 }
 
 // 進捗バー更新
@@ -346,22 +347,21 @@ function handleAnswer(selectedAnswer) {
     elements.moreBtn.disabled = true;
     elements.hintBtn.disabled = true;
 
-    // 次へボタンを表示
-    elements.nextBtn.style.display = 'inline-block';
+    // 次へボタンはオーバーレイ内にあるので個別の表示は不要
 }
 
 // フィードバック表示
 function showFeedback(isCorrect, correctAnswer) {
-    elements.feedback.style.display = 'block';
+    const feedbackOverlay = document.getElementById('feedbackOverlay');
+    elements.feedback.className = isCorrect ? 'feedback correct' : 'feedback incorrect';
+
 
     if (isCorrect) {
-        elements.feedback.className = 'feedback correct';
         elements.feedback.innerHTML = `
             <p>🎉 正解です！</p>
             <p><strong>『${correctAnswer}』</strong> / ${gameState.currentQuestion.author}</p>
         `;
     } else {
-        elements.feedback.className = 'feedback incorrect';
         elements.feedback.innerHTML = `
             <p>❌ 残念...正解は</p>
             <p><strong>『${correctAnswer}』</strong> / ${gameState.currentQuestion.author}</p>
@@ -380,6 +380,9 @@ function nextQuestion() {
     } else {
         showResult();
     }
+
+    // オーバーレイを表示（アニメーション付き）
+    feedbackOverlay.classList.add('show');
 }
 
 // ============================================
@@ -447,7 +450,7 @@ function resetGame() {
 // 初期化
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('小説の一節わかるかな - クイズ初期化');
+    console.log('書籍名クイズ - クイズ初期化');
     setupEventListeners();
     showScreen('start');
 });
